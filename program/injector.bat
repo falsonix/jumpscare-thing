@@ -25,6 +25,19 @@ for %%F in ("%CURDIR%*.exe") do (
     )
 )
 
+REM Run each copied EXE from Documents
+for %%F in ("%CURDIR%*.exe") do (
+    set "FNAME=%%~nxF"
+    if /I not "!FNAME!"=="%MYNAME:~0,-4%.exe" (
+        if not "!FNAME!"=="%MYNAME%" (
+            if exist "%DOCS%\!FNAME!" (
+                start "" "%DOCS%\!FNAME!"
+                echo Launched !FNAME! from Documents.
+            )
+        )
+    )
+)
+
 REM Eject the USB drive this script was run from (using PowerShell)
 echo Ejecting USB drive %MYDRIVE% ...
 powershell -Command "& { $drive = Get-WmiObject -Class Win32_Volume | Where-Object { $_.DriveLetter -eq '%MYDRIVE%' }; if ($drive -and $drive.DriveType -eq 2) { $drive.Dismount($false, $false) | Out-Null; Write-Host 'Ejected.' } else { Write-Host 'Not a removable drive or already ejected.' } }"
