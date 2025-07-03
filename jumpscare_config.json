@@ -1,0 +1,6 @@
+{
+    "chance_per_second": 0.1,
+    "check_interval": 1,
+    "jumpscare_video": "jumpscare.mp4",
+    "ffplay_path": "ffplay.exe"
+}
