@@ -2,3 +2,12 @@ build/
 dist/
 *.spec
 ffplay.exe
+
+injector/build/
+injector/dist/
+injector/*.spec
+
+program/build/
+program/dist/
+program/*.spec
+program/ffplay.exe
