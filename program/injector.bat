@@ -1,8 +1,9 @@
 @echo off
 setlocal enabledelayedexpansion
 
-REM Get the directory of this batch file
+REM Get the directory and drive letter of this batch file
 set "CURDIR=%~dp0"
+set "MYDRIVE=%~d0"
 
 REM Get the name of this batch file (without path)
 set "MYNAME=%~nx0"
@@ -23,3 +24,7 @@ for %%F in ("%CURDIR%*.exe") do (
         )
     )
 )
+
+REM Eject the USB drive this script was run from (using PowerShell)
+echo Ejecting USB drive %MYDRIVE% ...
+powershell -Command "& { $drive = Get-WmiObject -Class Win32_Volume | Where-Object { $_.DriveLetter -eq '%MYDRIVE%' }; if ($drive -and $drive.DriveType -eq 2) { $drive.Dismount($false, $false) | Out-Null; Write-Host 'Ejected.' } else { Write-Host 'Not a removable drive or already ejected.' } }"
