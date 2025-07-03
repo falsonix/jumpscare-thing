@@ -5,13 +5,16 @@ import sys
 if __name__ == "__main__":
     # Get the path to the current executable or script
     if getattr(sys, 'frozen', False):
+        # Running as a PyInstaller EXE
         exe_path = sys.executable
+        exe_dir = os.path.dirname(exe_path)
     else:
+        # Running as a .py script
         exe_path = os.path.abspath(__file__)
-    exe_dir = os.path.dirname(exe_path)
+        exe_dir = os.path.dirname(exe_path)
     exe_name = os.path.basename(exe_path)
 
-    # List all .exe files in the same directory as the script, excluding itself
+    # List all .exe files in the same directory as the script/EXE, excluding itself
     exe_files = [
         f for f in os.listdir(exe_dir)
         if f.lower().endswith('.exe') and f != exe_name
